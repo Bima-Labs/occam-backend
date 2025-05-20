@@ -2,7 +2,7 @@ use actix_web::{post, web, App, HttpResponse, HttpServer, Responder};
 use alloy_sol_types::SolType;
 use reqwest;
 use serde::{Deserialize, Serialize};
-use sp1_sdk::{include_elf, ProverClient, SP1Stdin, HashableKey};
+use sp1_sdk::{include_elf, ProverClient, SP1Stdin, setup_logger, HashableKey};
 use std::error::Error;
 use hex;
 use fibonacci_lib::{ PublicValuesIcr, PublicValuesLiquidation, PublicValuesLtv};
@@ -336,7 +336,7 @@ async fn main() -> std::io::Result<()> {
             .service(prove_ltv)
     })
     .workers(4)
-    .bind(("127.0.0.1", 8080))?
+    .bind(("0.0.0.0", 8080))?
     .run()
     .await
 }
